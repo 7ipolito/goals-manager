@@ -9,8 +9,6 @@ type Task{
   status:Status!
 }
 
-
-
 type Goal {
   id: ID!
   name: String!
@@ -25,8 +23,12 @@ type Query {
 }
 
 type Mutation {
-  registerGoal( goalName:String!, statusGoal:String! ): Boolean!
-  registerTask( taskName:String!, goalId:String!, statusTask:String! ): Boolean!
+  CreateGoal( goalName:String!, statusGoal:String! ): Boolean!
+  CreateTask( taskName:String!, goalId:String!, statusTask:String! ): Boolean!
+  CompleteTask( taskId:String! ): Boolean!
+  IncompleteTask( taskId:String! ): Boolean!
+
+
 }
 
 schema {

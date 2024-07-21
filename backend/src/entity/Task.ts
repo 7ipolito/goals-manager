@@ -1,5 +1,6 @@
 import { Table, Column, Model, DataType, ForeignKey, BelongsTo, CreatedAt, UpdatedAt } from 'sequelize-typescript';
 import { Goal } from './Goal';
+import { TaskStatus } from '../interface/ICreateTask';
 
 @Table({ tableName: 'tasks' })
 export class Task extends Model<Task> {
@@ -47,7 +48,3 @@ export class Task extends Model<Task> {
   updatedAt!: Date;
 }
 
-export enum TaskStatus {
-  DONE = 'DONE',
-  TODO = 'TODO',
-}

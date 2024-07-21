@@ -1,19 +1,10 @@
 import { hash } from 'bcryptjs';
 import { IResolvers } from '@graphql-tools/utils';
 import { Goal } from './entity/Goal';
-import { TaskStatus, Task } from './entity/Task';
-
-interface RegisterGoal {
-    goalName:string;
-    statusGoal:string
-}
-
-interface RegisterTask {
-  taskName:string;
-  goalId:string;
-  statusTask:TaskStatus;
-}
-
+import { Task } from './entity/Task';
+import { CreateTask, TaskStatus } from './interface/ICreateTask';
+import {CreateGoal as CreateGoalProps} from './interface/ICreateGoal'
+import { ChangeTask } from './interface/IChangeTask';
 export const resolvers: IResolvers = {
   Query: {
     goals: async (parent, args,) => {
@@ -32,7 +23,7 @@ export const resolvers: IResolvers = {
     }
   },
   Mutation: {
-    registerGoal: async (_: any, args: RegisterGoal): Promise<boolean> => {
+    CreateGoal: async (_,args: CreateGoalProps): Promise<boolean> => {
       const { goalName, statusGoal} = args;
       const goal = await Goal.create({
         name:goalName,
@@ -45,8 +36,7 @@ export const resolvers: IResolvers = {
       return true;
 
     },
-
-    registerTask: async (_: any, args: RegisterTask): Promise<boolean> => {
+    CreateTask: async (_,args: CreateTask): Promise<boolean> => {
       const { taskName, goalId, statusTask } = args;
       const goal = await Task.create({
         name:taskName,
@@ -60,5 +50,42 @@ export const resolvers: IResolvers = {
       return true;
 
     },
+    CompleteTask: async(_,args: ChangeTask):Promise<boolean> =>{
+      const {taskId} = args;
+      console.log(taskId)
+
+      const [affectedRows] = await Task.update({status:TaskStatus.DONE}, {
+        where: {
+          id: taskId
+        }
+      });
+      
+      if (affectedRows > 0) {
+        console.log('User updated');
+        return true
+      } else {
+        console.log('Dont have users');
+        return false
+      }      
+     },
+     IncompleteTask: async(_,args: ChangeTask):Promise<boolean> =>{
+      const {taskId} = args;
+      console.log(taskId)
+
+      const [affectedRows] = await Task.update({status:TaskStatus.TODO}, {
+        where: {
+          id: taskId
+        }
+      });
+      
+      if (affectedRows > 0) {
+        console.log('User updated');
+        return true
+      } else {
+        console.log('Dont have users');
+        return false
+      }      
+     }
+
   },
 };

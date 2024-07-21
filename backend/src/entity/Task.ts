@@ -11,6 +11,13 @@ export class Task extends Model<Task> {
   })
   id!: string;
 
+  
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  name!: string;
+
   @Column({
     type: DataType.STRING,
     allowNull: false,

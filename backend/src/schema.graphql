@@ -1,28 +1,32 @@
-type Task{
-  id: ID!
-  name:String!
-  status:Task!
-}
-
 
 enum Status {
   DONE,
   TODO
 }
+type Task{
+  id: ID!
+  name:String!
+  status:Status!
+}
+
+
 
 type Goal {
   id: ID!
   name: String!
-  status: Status!
-  tasks: [Task!]!
+  status: String
+  tasks: [Task!]
 }
 
 type Query {
-  goals:[Goal!]!
+  goals:[Goal!]
+  goal(id: ID!): Goal
+
 }
 
 type Mutation {
-  registerGoal( goalName:String!, status:String! ): Boolean!
+  registerGoal( goalName:String!, statusGoal:String! ): Boolean!
+  registerTask( taskName:String!, goalId:String!, statusTask:String! ): Boolean!
 }
 
 schema {

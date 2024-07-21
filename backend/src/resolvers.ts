@@ -5,34 +5,53 @@ import { TaskStatus, Task } from './entity/Task';
 
 interface RegisterGoal {
     goalName:string;
-    status:string
+    statusGoal:string
 }
 
 interface RegisterTask {
   taskName:string;
-  goal:Goal;
-  status:TaskStatus;
+  goalId:string;
+  statusTask:TaskStatus;
 }
 
 export const resolvers: IResolvers = {
   Query: {
-    goals: async (): Promise<Goal[]> => {
-      try {
-
-        const users = await Goal.findAll();
-        return users;
-      } catch (error) {
-        console.error('Error fetching goals:', error);
-        throw new Error('Failed to fetch goals');
-      }
+    goals: async (parent, args,) => {
+    
+      return await Goal.findAll();
     },
+    goal: async (parent, { id },) => {
+     
+      return await Goal.findByPk(id);
+    }
+  },
+  Goal: {
+    tasks: async (goal, args,) => {
+    
+      return await Task.findAll({ where: { goalId: goal.id } });
+    }
   },
   Mutation: {
     registerGoal: async (_: any, args: RegisterGoal): Promise<boolean> => {
-      const { goalName, status } = args;
+      const { goalName, statusGoal} = args;
       const goal = await Goal.create({
         name:goalName,
-        status:status,
+        status:statusGoal,
+       
+      }as any);
+      
+      await goal.save()
+      
+      return true;
+
+    },
+
+    registerTask: async (_: any, args: RegisterTask): Promise<boolean> => {
+      const { taskName, goalId, statusTask } = args;
+      const goal = await Task.create({
+        name:taskName,
+        goalId:goalId,
+        status:statusTask,
        
       }as any);
       

@@ -17,6 +17,11 @@ export class Goal extends Model<Goal> {
   })
   name!: string;
 
+  @Column({
+    type: DataType.STRING,
+  })
+  status?: string;
+
   @HasMany(() => Task)
   tasks?: Task[];
 

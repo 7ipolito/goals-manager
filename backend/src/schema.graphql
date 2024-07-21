@@ -1,0 +1,31 @@
+type Task{
+  id: ID!
+  name:String!
+  status:Task!
+}
+
+
+enum Status {
+  DONE,
+  TODO
+}
+
+type Goal {
+  id: ID!
+  name: String!
+  status: Status!
+  tasks: [Task!]!
+}
+
+type Query {
+  goals:[Goal!]!
+}
+
+type Mutation {
+  registerGoal( goalName:String!, status:String! ): Boolean!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

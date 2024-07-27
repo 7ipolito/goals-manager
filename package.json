@@ -12,5 +12,8 @@
     "install-backend": "cd backend && pnpm install",
     "install": "concurrently \"pnpm run install-frontend\" \"pnpm run install-backend\" ",
     "start": "concurrently \"pnpm run start-frontend\" \"pnpm run start-backend\""
+  },
+  "dependencies": {
+    "sequelize-typescript": "^2.1.6"
   }
 }

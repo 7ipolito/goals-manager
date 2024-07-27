@@ -7,23 +7,23 @@ import {CreateGoal as CreateGoalProps} from './interface/ICreateGoal'
 import { ChangeTask } from './interface/IChangeTask';
 export const resolvers: IResolvers = {
   Query: {
-    goals: async (parent, args,) => {
+    goals: async (parent: any, args: any,) => {
     
       return await Goal.findAll();
     },
-    goal: async (parent, { id },) => {
+    goal: async (parent: any, { id }: any,) => {
      
       return await Goal.findByPk(id);
     }
   },
   Goal: {
-    tasks: async (goal, args,) => {
+    tasks: async (goal: { id: any; }, args: any,) => {
     
       return await Task.findAll({ where: { goalId: goal.id } });
     }
   },
   Mutation: {
-    CreateGoal: async (_,args: CreateGoalProps): Promise<boolean> => {
+    CreateGoal: async (_: any,args: CreateGoalProps): Promise<boolean> => {
       const { goalName, statusGoal} = args;
       const goal = await Goal.create({
         name:goalName,
@@ -36,7 +36,7 @@ export const resolvers: IResolvers = {
       return true;
 
     },
-    CreateTask: async (_,args: CreateTask): Promise<boolean> => {
+    CreateTask: async (_: any,args: CreateTask): Promise<boolean> => {
       const { taskName, goalId, statusTask } = args;
       const goal = await Task.create({
         name:taskName,
@@ -50,7 +50,7 @@ export const resolvers: IResolvers = {
       return true;
 
     },
-    CompleteTask: async(_,args: ChangeTask):Promise<boolean> =>{
+    CompleteTask: async(_: any,args: ChangeTask):Promise<boolean> =>{
       const {taskId} = args;
       console.log(taskId)
 
@@ -68,7 +68,7 @@ export const resolvers: IResolvers = {
         return false
       }      
      },
-     IncompleteTask: async(_,args: ChangeTask):Promise<boolean> =>{
+     IncompleteTask: async(_: any,args: ChangeTask):Promise<boolean> =>{
       const {taskId} = args;
       console.log(taskId)
 

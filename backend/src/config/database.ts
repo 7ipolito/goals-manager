@@ -1,9 +1,11 @@
+import pg from 'pg';
 import { Goal } from '../entity/Goal';
 import { Task } from '../entity/Task';
 import { Sequelize } from 'sequelize-typescript';
 
 const sequelize = new Sequelize({
   dialect: 'postgres', 
+  dialectModule:pg,
   host: 'localhost',
   port: 5432,
   username: 'postgres',

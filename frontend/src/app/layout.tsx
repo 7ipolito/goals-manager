@@ -1,11 +1,11 @@
-'use client'
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import "./globals.css";
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/client";
-import { registerApolloClient } from "@apollo/experimental-nextjs-app-support";
+// import { registerApolloClient } from "@apollo/experimental-nextjs-app-support";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,11 +30,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <ApolloWrapper>
+     
         
-        {children}
-      </ApolloWrapper>
-
+      <AntdRegistry>{children}</AntdRegistry>
+     
       </body>
     </html>
   );

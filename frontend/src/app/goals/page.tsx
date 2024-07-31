@@ -1,9 +1,11 @@
 
 import React, { useEffect } from 'react';
 import { useQuery, gql, useLazyQuery } from "@apollo/client";
-import {Button} from "antd"
+import {Button, Layout} from "antd"
 import { getClient, query } from '@/lib/client';
-
+import ListGoals from "../../components/ListGoals/ListGoals.server"
+import Navbar from '@/components/Navbar/Navbar';
+const { Header, Content, Footer } = Layout;
 
 const GET_GOALS = gql`
   query getAllUsers{
@@ -30,13 +32,10 @@ export default async function Goals(){
   });
 
   return (
-    <div className='flex flex-1 w-full h-[100vh] bg-white'>
-      {data.goals.map((goal:any)=>(
-        <>
-          <Button>{goal?.name}</Button>
-        </>
-      ))}
-    </div>
+  <Navbar>
+
+    <ListGoals goals={data.goals}/>
+  </Navbar>
   )
 }
 

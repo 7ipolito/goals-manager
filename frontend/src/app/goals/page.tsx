@@ -2,9 +2,10 @@
 import React, { useEffect } from 'react';
 import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import {Button, Layout} from "antd"
-import { getClient, query } from '@/lib/client';
-import ListGoals from "../../components/ListGoals/ListGoals.server"
-import Navbar from '@/components/Navbar/Navbar';
+import { getClient } from '@/lib/client';
+import ListGoals from '@/components/ListGoals/listGoals';
+import Navbar from '@/components/Navbar/navbar';
+
 const { Header, Content, Footer } = Layout;
 
 const GET_GOALS = gql`
@@ -30,6 +31,8 @@ export default async function Goals(){
     query: GET_GOALS,
      
   });
+
+  console.log(data.goals)
 
   return (
   <Navbar>

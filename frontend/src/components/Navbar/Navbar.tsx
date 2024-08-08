@@ -5,7 +5,7 @@ import { Layout} from "antd"
 const { Header, Content, Footer } = Layout;
 
 // eslint-disable-next-line @next/next/no-async-client-component
-export default async function Navbar({children}:any){ 
+export default function Navbar({children}:any){ 
 
   return (
     <div className='flex flex-1 w-full h-[100vh] bg-white'>

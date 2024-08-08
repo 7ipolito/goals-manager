@@ -27,12 +27,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body className={lato.className}>
      
-        
-      <AntdRegistry>{children}</AntdRegistry>
+      <ApolloWrapper> <AntdRegistry>{children}</AntdRegistry></ApolloWrapper>
+     
      
       </body>
     </html>

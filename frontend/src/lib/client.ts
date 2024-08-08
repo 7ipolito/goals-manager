@@ -5,7 +5,6 @@ import {
   ApolloClient,
   InMemoryCache,
 } from "@apollo/experimental-nextjs-app-support";
-import { cache } from "react";
 
 export const { getClient, query, PreloadQuery } = registerApolloClient(() => {
   return new ApolloClient({

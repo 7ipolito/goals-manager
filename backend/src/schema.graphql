@@ -19,6 +19,7 @@ type Goal {
 type Query {
   goals:[Goal!]
   goal(id: ID!): Goal
+  goalsComplete:[Goal!]
 
 }
 

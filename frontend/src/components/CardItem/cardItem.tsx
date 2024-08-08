@@ -62,7 +62,7 @@ export default function CardItem({ goal }: any) {
         ]}
       >
         <Meta
-          avatar={<Avatar src="https://avatars.githubusercontent.com/u/45522944?v=4" />}
+        
           title={goal.name}
           description={`${goal.tasks.filter((task: any) => task.status === 'DONE').length}/${goal.tasks.length} itens concluídos`}
           className='text-center p-2'

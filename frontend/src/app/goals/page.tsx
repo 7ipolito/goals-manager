@@ -1,14 +1,17 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, gql, useMutation } from '@apollo/client';
-import { FloatButton, Input, Layout, Modal, Select } from 'antd';
+import { Button, FloatButton, Input, Layout, Modal, Select, Skeleton } from 'antd';
 import ListGoals from '@/components/ListGoals/listGoals';
 import Navbar from '@/components/Navbar/navbar';
 import { AiOutlineForm, AiOutlineFileDone, AiFillFileAdd } from 'react-icons/ai';
 import { CREATE_GOAL, CREATE_TASK } from '@/graphql/mutations';
 import { GET_GOALS } from '@/graphql/queries';
+import { useRouter } from 'next/navigation';
+import Loading from '@/components/Loading';
 
 export default function Goals() {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [typeModal, setTypeModal] = useState<'task' | 'goal'>('goal');
   const [inputValue, setInputValue]=useState<any>('')
@@ -28,6 +31,11 @@ export default function Goals() {
     setTypeModal('goal');
     setIsModalOpen(true);
   };
+
+  const goToCompleteGoalsPage = () => {
+    router.push('/goals/done');
+  };
+
 
   const showModalCreateTask = () => {
     setTypeModal('task');
@@ -54,11 +62,17 @@ export default function Goals() {
     setIsModalOpen(false);
   };
   
-
   return (
-    <>
+    <div className='flex flex-1 w-full h-[100vh]'>
       <Navbar>
-        {!loading && <ListGoals goals={data.goals} />}
+        {!loading ? (
+          <>
+            <ListGoals goals={data.goals} />
+            <Button type='link'  style={{margin:16,}} onClick={goToCompleteGoalsPage}>See goals completed</Button>
+          </>
+        ):
+         <Loading/>
+        }
       </Navbar>
       <FloatButton.Group
         trigger="click"
@@ -101,6 +115,7 @@ export default function Goals() {
           )}
         </div>
       </Modal>
-    </>
+      
+    </div>
   );
 }

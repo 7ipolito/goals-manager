@@ -18,6 +18,7 @@
       "@types/bcryptjs": "^2.4.6",
       "apollo-server": "^3.13.0",
       "bcryptjs": "^2.4.3",
+      "copyfiles": "^2.4.1",
       "graphql": "^16.9.0",
       "nodemon": "^3.1.4",
       "pg": "^8.12.0",
@@ -27,7 +28,9 @@
       "uuid": "^10.0.0"
    },
    "scripts": {
-      "start": "nodemon --exec ts-node-dev src/index.ts",
+      "dev": "nodemon --exec ts-node-dev src/index.ts",
+      "build": "tsc && copyfiles -u 1 'src/*.graphql' dist",
+      "start": "node dist/index.js",
       "typeorm": "typeorm-ts-node-commonjs"
    }
 }

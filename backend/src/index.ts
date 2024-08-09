@@ -3,7 +3,7 @@ import { loadSchemaSync } from '@graphql-tools/load';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { join } from 'node:path';
 import { resolvers } from './resolvers';
-import { initializeDatabase } from '../src/config/database';
+import { initializeDatabase } from './config/database';
 
 async function startServer() {
   try {

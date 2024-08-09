@@ -4,7 +4,7 @@ import { useQuery, gql, useMutation } from '@apollo/client';
 import { FloatButton, Input, Layout, Modal, Select } from 'antd';
 import ListGoals from '@/components/ListGoals/listGoals';
 import Navbar from '@/components/Navbar/navbar';
-import { FormOutlined, FileDoneOutlined, FileAddFilled } from '@ant-design/icons';
+import { AiOutlineForm, AiOutlineFileDone, AiFillFileAdd } from 'react-icons/ai';
 import { CREATE_GOAL, CREATE_TASK } from '@/graphql/mutations';
 import { GET_GOALS } from '@/graphql/queries';
 
@@ -64,7 +64,7 @@ export default function Goals() {
         trigger="click"
         type="primary"
         style={{ insetInlineEnd: 24 }}
-        icon={<FormOutlined />}
+        icon={<AiOutlineForm />}
       >
         <FloatButton
           shape="square"
@@ -72,14 +72,14 @@ export default function Goals() {
           tooltip={<p>Goal</p>}
           onClick={showModalCreateGoal}
           style={{ insetInlineEnd: 24 }}
-          icon={<FileAddFilled />}
+          icon={<AiFillFileAdd />}
         />
         <FloatButton
           shape="square"
           type="primary"
           tooltip={<p>Task</p>}
           onClick={showModalCreateTask}
-          icon={<FileDoneOutlined />}
+          icon={<AiOutlineFileDone />}
         />
       </FloatButton.Group>
 

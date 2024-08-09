@@ -13,6 +13,6 @@
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true
   },
-  "include": ["src/**/*.ts", "dotenv/config", "migrations/create-tasks-table.ts"],
+  "include": ["src/**/*.ts", "dotenv/config", "src/*.graphql"],
   "exclude": ["node_modules"]
 }

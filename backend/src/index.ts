@@ -3,7 +3,9 @@ import { loadSchemaSync } from '@graphql-tools/load';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import { join } from 'node:path';
 import { resolvers } from './resolvers';
-import { initializeDatabase } from '../src/config/database';
+import { initializeDatabase } from './config/database';
+import dotenv from 'dotenv'
+dotenv.config()
 
 async function startServer() {
   try {
@@ -19,7 +21,7 @@ async function startServer() {
      
     });
 
-    const { url } = await server.listen({ port: 4000 });
+    const { url } = await server.listen({ port: process.env.PORT });
 
     console.info(`Server is running on ${url}`);
   } catch (error) {

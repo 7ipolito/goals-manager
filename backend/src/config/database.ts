@@ -2,8 +2,10 @@ import pg from 'pg';
 import { Goal } from '../entity/Goal';
 import { Task } from '../entity/Task';
 import { Sequelize } from 'sequelize-typescript';
+import dotenv from 'dotenv'
+dotenv.config()
 
-const sequelize = new Sequelize('postgresql://postgres.sznkmulqwxypjgrvnelq:JVaGe36SM0uXXWQo@aws-0-us-east-1.pooler.supabase.com:6543/postgres', {
+const sequelize = new Sequelize(process.env.DATABASE_URL!, {
   dialect: 'postgres',
   dialectModule: pg,
   logging: true,

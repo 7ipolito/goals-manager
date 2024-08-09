@@ -30,10 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={lato.className}>
-     
-      <ApolloWrapper> <AntdRegistry>{children}</AntdRegistry></ApolloWrapper>
-     
-     
+      <ApolloWrapper>
+         <AntdRegistry>
+            {children}
+         </AntdRegistry>
+      </ApolloWrapper>
       </body>
     </html>
   );

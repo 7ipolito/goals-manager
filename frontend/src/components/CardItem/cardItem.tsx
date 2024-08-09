@@ -1,30 +1,17 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-import { Avatar, Card, Checkbox, Drawer, Progress } from 'antd';
-import { gql, useMutation } from '@apollo/client';
+import { Card, Checkbox, Drawer, Progress } from 'antd';
+import { useMutation } from '@apollo/client';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { GET_GOALS } from '@/app/goals/page';
+import { COMPLETE_TASK, INCOMPLETE_TASK } from '@/graphql/mutations';
+import { GET_GOALS } from '@/graphql/queries';
 
 const { Meta } = Card;
-
-const COMPLETE_TASK = gql`
-  mutation CompleteTask($taskId: String!) {
-    CompleteTask(taskId: $taskId)
-  }
-`;
-
-const INCOMPLETE_TASK = gql`
-  mutation IncompleteTask($taskId: String!) {
-    IncompleteTask(taskId: $taskId)
-  }
-`;
 
 export default function CardItem({ goal }: any) {
   const [open, setOpen] = useState(false);
   const [percent, setPercent] = useState(0);
 
-  // Mover hooks para o topo do componente
   const [completeTask] = useMutation(COMPLETE_TASK,{
     refetchQueries:[{query:GET_GOALS}],
   });
@@ -41,13 +28,12 @@ export default function CardItem({ goal }: any) {
   };
 
   const onChange = (e: CheckboxChangeEvent, taskId: any) => {
-    console.log(`checked = ${e.target.checked}`);
     e.target.checked ? completeTask({ variables: { taskId } }) : incompleteTask({ variables: { taskId } });
   };
 
   useEffect(() => {
     const completedTasks = goal.tasks.filter((task: any) => task.status === 'DONE').length;
-    setPercent((completedTasks / goal.tasks.length) * 100);
+    setPercent(Math.round((completedTasks / goal.tasks.length) * 100));
   }, [goal.tasks]);
 
   return (
@@ -62,9 +48,8 @@ export default function CardItem({ goal }: any) {
         ]}
       >
         <Meta
-        
           title={goal.name}
-          description={`${goal.tasks.filter((task: any) => task.status === 'DONE').length}/${goal.tasks.length} itens concluídos`}
+          description={`${goal.tasks.filter((task: any) => task.status === 'DONE').length}/${goal.tasks.length} items done`}
           className='text-center p-2'
         />
       </Card>

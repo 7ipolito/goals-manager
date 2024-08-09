@@ -43,7 +43,7 @@ export default function Goals() {
     createGoal({ variables: { goalName:inputValue, statusGoal:"Imcomplete" } })
     setIsModalOpen(false);
    }else if(typeModal=='task'){
-    
+
     createTask({ variables: { taskName:inputValue, goalId:optionIdSelected, statusTask:"TODO"} })
     setIsModalOpen(false);
 
@@ -53,6 +53,7 @@ export default function Goals() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  
 
   return (
     <>

@@ -31,8 +31,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={lato.className}>
      
-        
-      <AntdRegistry>{children}</AntdRegistry>
+      <ApolloWrapper> <AntdRegistry>{children}</AntdRegistry></ApolloWrapper>
+     
      
       </body>
     </html>

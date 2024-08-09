@@ -14,6 +14,29 @@ export const resolvers: IResolvers = {
     goal: async (parent: any, { id }: any,) => {
      
       return await Goal.findByPk(id);
+    }, 
+    goalsComplete: async (_,__)=>{
+      const goals = await Goal.findAll({
+        include: [
+          {
+            model: Task,
+            as: 'tasks', 
+            attributes: ['id', 'name', 'status']
+          }
+        ]
+      });
+      const completedGoals: Goal[] = [];
+
+      goals.forEach(goal => {
+        
+        const allTasksDone = goal?.tasks?.every(task => task.status == 'DONE');
+        
+        if (allTasksDone) {
+          completedGoals.push(goal);
+        }
+
+      });     
+      return completedGoals;
     }
   },
   Goal: {
